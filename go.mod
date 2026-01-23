@@ -5,11 +5,7 @@ go 1.25.1
 require (
 	github.com/gofiber/fiber/v2 v2.52.10
 	github.com/google/uuid v1.6.0
-<<<<<<< HEAD
-	github.com/nicolasbonnici/gorest v0.4.5
-=======
 	github.com/nicolasbonnici/gorest v0.4.7
->>>>>>> fbdd8d1 (chore: GoREST bumped to v0.4.7)
 )
 
 require (
