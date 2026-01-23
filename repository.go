@@ -92,7 +92,7 @@ func (r *repository) List(ctx context.Context, userID uuid.UUID, limit, offset i
 	if err != nil {
 		return nil, 0, fmt.Errorf("failed to list items: %w", err)
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var items []Item
 	for rows.Next() {
