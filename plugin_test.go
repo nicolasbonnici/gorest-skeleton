@@ -103,8 +103,8 @@ func (m *mockDatabase) Exec(ctx context.Context, query string, args ...interface
 }
 func (m *mockDatabase) Begin(ctx context.Context) (database.Tx, error) { return nil, nil }
 func (m *mockDatabase) Dialect() database.Dialect                      { return nil }
-func (m *mockDatabase) DriverName() string                              { return "mock" }
-func (m *mockDatabase) Introspector() database.SchemaIntrospector       { return nil }
+func (m *mockDatabase) DriverName() string                             { return "mock" }
+func (m *mockDatabase) Introspector() database.SchemaIntrospector      { return nil }
 
 func TestPluginInitializeWithDatabase(t *testing.T) {
 	plugin := NewPlugin().(*SkeletonPlugin)
