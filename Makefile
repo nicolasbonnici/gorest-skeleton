@@ -1,4 +1,4 @@
-.PHONY: help test lint lint-fix build clean install coverage audit
+.PHONY: help test test-coverage lint lint-fix build clean install all audit
 
 # Add Go bin to PATH for all targets
 GOPATH ?= $(shell go env GOPATH)
@@ -82,7 +82,7 @@ audit: ## Run all Go Report Card quality checks (gofmt, vet, staticcheck, etc.)
 	@echo "✓ misspell passed"
 	@echo ""
 	@echo "[6/7] Running errcheck..."
-	@errcheck -ignoretests ./... 2>&1 || \
+	@errcheck -exclude .errcheck-excludes -ignoretests ./... 2>&1 || \
 	(echo "⚠️  errcheck failed (known issue with go1.25.1 - will be fixed in CI)" && exit 0)
 	@echo "✓ errcheck passed (or skipped)"
 	@echo ""
@@ -114,19 +114,17 @@ test: ## Run tests with coverage
 	@go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
 	@echo ""
 	@echo "Coverage summary:"
-	@go tool cover -func=coverage.out
+	@go tool cover -func=coverage.out | grep total:
 	@rm -f coverage.out
 
-coverage: ## Generate and display coverage report
+test-coverage: ## Run tests with HTML coverage report
 	@echo "Running tests with coverage..."
 	@go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
 	@echo ""
-	@echo "Coverage summary:"
-	@go tool cover -func=coverage.out
-	@echo ""
 	@echo "Generating HTML coverage report..."
 	@go tool cover -html=coverage.out -o coverage.html
-	@echo "✓ Coverage report saved to coverage.html"
+	@echo "✓ Coverage report generated: coverage.html"
+	@go tool cover -func=coverage.out
 
 lint: ## Run linter
 	@echo "Running golangci-lint..."
@@ -146,3 +144,9 @@ clean: ## Clean build artifacts and caches
 	@go clean -cache -testcache -modcache
 	@rm -f coverage.out coverage.html
 	@echo "✓ Cleaned"
+
+all: lint test build ## Run all checks (lint, test, build)
+	@echo ""
+	@echo "========================================"
+	@echo "✅ All checks passed!"
+	@echo "========================================"

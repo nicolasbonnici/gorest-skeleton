@@ -426,6 +426,8 @@ make clean      # Clean build artifacts and caches
 
 ## Testing
 
+### Unit Tests
+
 ```bash
 # Run all tests
 go test -v ./...
@@ -438,7 +440,34 @@ go tool cover -html=coverage.out
 
 # Or use Make
 make test
+make test-coverage  # Generates HTML coverage report
 ```
+
+### Integration Tests
+
+Integration tests run against real databases and are tagged with `//go:build integration`.
+
+**Prerequisites:**
+- PostgreSQL or MySQL running locally
+- Test database created
+- Environment variables set:
+  - `POSTGRES_URL` (e.g., `postgres://test:test@localhost:5432/test?sslmode=disable`)
+  - `MYSQL_URL` (e.g., `test:test@tcp(localhost:3306)/test`)
+
+**Running integration tests:**
+
+```bash
+# Run integration tests only
+go test -v -race -tags=integration ./...
+
+# Run with specific database
+POSTGRES_URL="postgres://test:test@localhost:5432/test?sslmode=disable" \
+  go test -v -race -tags=integration ./...
+```
+
+**CI/CD:**
+
+Integration tests run automatically in GitHub Actions using PostgreSQL and MySQL service containers.
 
 ## Integration with Other Plugins
 
