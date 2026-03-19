@@ -8,10 +8,8 @@ import (
 )
 
 type SkeletonPlugin struct {
-	config  Config
-	db      database.Database
-	handler *Handler
-	repo    Repository
+	config Config
+	db     database.Database
 }
 
 func NewPlugin() plugin.Plugin {
@@ -43,8 +41,6 @@ func (p *SkeletonPlugin) Initialize(config map[string]interface{}) error {
 	}
 
 	if p.db != nil {
-		p.repo = NewRepository(p.db)
-		p.handler = NewHandler(p.repo, &p.config)
 		logger.Log.Info("Skeleton plugin database initialized")
 	} else {
 		logger.Log.Warn("Skeleton plugin initialized without database - endpoints will not be available")
@@ -61,18 +57,12 @@ func (p *SkeletonPlugin) Handler() fiber.Handler {
 }
 
 func (p *SkeletonPlugin) SetupEndpoints(app *fiber.App) error {
-	if p.handler == nil {
-		logger.Log.Warn("Skeleton plugin handler not initialized, skipping endpoint registration")
+	if p.db == nil {
+		logger.Log.Warn("Skeleton plugin database not initialized, skipping endpoint registration")
 		return nil
 	}
 
-	api := app.Group("/api/skeleton")
-
-	api.Post("/", p.handler.Create)
-	api.Get("/:id", p.handler.GetByID)
-	api.Get("/", p.handler.List)
-	api.Put("/:id", p.handler.Update)
-	api.Delete("/:id", p.handler.Delete)
+	RegisterItemRoutes(app, p.db, &p.config)
 
 	logger.Log.Info("Skeleton plugin endpoints registered", "prefix", "/api/skeleton")
 	return nil

@@ -123,12 +123,4 @@ func TestPluginInitializeWithDatabase(t *testing.T) {
 	if plugin.db == nil {
 		t.Error("Expected database to be set")
 	}
-
-	if plugin.repo == nil {
-		t.Error("Expected repository to be initialized")
-	}
-
-	if plugin.handler == nil {
-		t.Error("Expected handler to be initialized")
-	}
 }
