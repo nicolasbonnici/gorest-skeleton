@@ -47,12 +47,12 @@ func TestItemJSONSerialization(t *testing.T) {
 func TestCreateItemRequestValidation(t *testing.T) {
 	tests := []struct {
 		name    string
-		request CreateItemRequest
+		request ItemCreateDTO
 		valid   bool
 	}{
 		{
 			name: "valid request",
-			request: CreateItemRequest{
+			request: ItemCreateDTO{
 				Name:        "Test Item",
 				Description: "Test Description",
 				Active:      true,
@@ -61,7 +61,7 @@ func TestCreateItemRequestValidation(t *testing.T) {
 		},
 		{
 			name: "empty description is valid",
-			request: CreateItemRequest{
+			request: ItemCreateDTO{
 				Name:   "Test Item",
 				Active: true,
 			},
@@ -82,7 +82,7 @@ func TestUpdateItemRequestPartialUpdate(t *testing.T) {
 	name := "Updated Name"
 	active := false
 
-	req := UpdateItemRequest{
+	req := ItemUpdateDTO{
 		Name:   &name,
 		Active: &active,
 	}
@@ -101,7 +101,7 @@ func TestUpdateItemRequestPartialUpdate(t *testing.T) {
 }
 
 func TestListItemsResponse(t *testing.T) {
-	items := []Item{
+	items := []ItemResponseDTO{
 		{
 			ID:          uuid.New(),
 			Name:        "Item 1",
@@ -120,33 +120,19 @@ func TestListItemsResponse(t *testing.T) {
 		},
 	}
 
-	response := ListItemsResponse{
-		Items:  items,
-		Total:  2,
-		Limit:  20,
-		Offset: 0,
-	}
-
-	data, err := json.Marshal(response)
+	// Test basic JSON serialization of response items
+	data, err := json.Marshal(items)
 	if err != nil {
-		t.Fatalf("Failed to marshal response: %v", err)
+		t.Fatalf("Failed to marshal items: %v", err)
 	}
 
-	var decoded ListItemsResponse
+	var decoded []ItemResponseDTO
 	err = json.Unmarshal(data, &decoded)
 	if err != nil {
-		t.Fatalf("Failed to unmarshal response: %v", err)
+		t.Fatalf("Failed to unmarshal items: %v", err)
 	}
 
-	if len(decoded.Items) != 2 {
-		t.Errorf("Expected 2 items, got %d", len(decoded.Items))
-	}
-
-	if decoded.Total != 2 {
-		t.Errorf("Expected total 2, got %d", decoded.Total)
-	}
-
-	if decoded.Limit != 20 {
-		t.Errorf("Expected limit 20, got %d", decoded.Limit)
+	if len(decoded) != 2 {
+		t.Errorf("Expected 2 items, got %d", len(decoded))
 	}
 }

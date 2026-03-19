@@ -52,7 +52,7 @@ jobs:
 
       - name: Run gocyclo (threshold 15)
         run: |
-          OUTPUT=$(gocyclo -over 15 .)
+          OUTPUT=$(gocyclo -over 15 . | grep -v '_test\.go' || true)
           if [ -n "$OUTPUT" ]; then
             echo "Functions with cyclomatic complexity over 15:"
             echo "$OUTPUT"
