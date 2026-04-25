@@ -29,9 +29,10 @@ jobs:
 
       - name: Run gofmt check
         run: |
-          if [ -n "$(gofmt -s -l .)" ]; then
+          unformatted=$(gofmt -s -l . | grep -v '^vendor/' | grep -v 'generated/' || true)
+          if [ -n "$unformatted" ]; then
             echo "The following files are not formatted with 'gofmt -s':"
-            gofmt -s -l .
+            echo "$unformatted"
             exit 1
           fi
 
