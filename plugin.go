@@ -1,7 +1,7 @@
 package skeleton
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"github.com/nicolasbonnici/gorest/database"
 	"github.com/nicolasbonnici/gorest/logger"
 	"github.com/nicolasbonnici/gorest/plugin"
@@ -51,7 +51,7 @@ func (p *SkeletonPlugin) Initialize(config map[string]interface{}) error {
 }
 
 func (p *SkeletonPlugin) Handler() fiber.Handler {
-	return func(c *fiber.Ctx) error {
+	return func(c fiber.Ctx) error {
 		return c.Next()
 	}
 }

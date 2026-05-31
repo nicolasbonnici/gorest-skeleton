@@ -3,7 +3,7 @@ package skeleton
 import (
 	"strings"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"github.com/google/uuid"
 	auth "github.com/nicolasbonnici/gorest/auth"
 	"github.com/nicolasbonnici/gorest/crud"
@@ -16,7 +16,7 @@ func NewItemHooks() *ItemHooks {
 	return &ItemHooks{}
 }
 
-func (h *ItemHooks) CreateHook(c *fiber.Ctx, dto ItemCreateDTO, model *Item) error {
+func (h *ItemHooks) CreateHook(c fiber.Ctx, dto ItemCreateDTO, model *Item) error {
 	name := strings.TrimSpace(dto.Name)
 	if name == "" {
 		return fiber.NewError(400, "name is required")
@@ -42,7 +42,7 @@ func (h *ItemHooks) CreateHook(c *fiber.Ctx, dto ItemCreateDTO, model *Item) err
 	return nil
 }
 
-func (h *ItemHooks) UpdateHook(c *fiber.Ctx, dto ItemUpdateDTO, model *Item) error {
+func (h *ItemHooks) UpdateHook(c fiber.Ctx, dto ItemUpdateDTO, model *Item) error {
 	if dto.Name == nil && dto.Description == nil && dto.Active == nil {
 		return fiber.NewError(400, "at least one field must be provided")
 	}
@@ -65,14 +65,14 @@ func (h *ItemHooks) UpdateHook(c *fiber.Ctx, dto ItemUpdateDTO, model *Item) err
 	return nil
 }
 
-func (h *ItemHooks) DeleteHook(c *fiber.Ctx, id any) error {
+func (h *ItemHooks) DeleteHook(c fiber.Ctx, id any) error {
 	return nil
 }
 
-func (h *ItemHooks) GetByIDHook(c *fiber.Ctx, id any) error {
+func (h *ItemHooks) GetByIDHook(c fiber.Ctx, id any) error {
 	return nil
 }
 
-func (h *ItemHooks) GetAllHook(c *fiber.Ctx, conditions *[]query.Condition, orderBy *[]crud.OrderByClause) error {
+func (h *ItemHooks) GetAllHook(c fiber.Ctx, conditions *[]query.Condition, orderBy *[]crud.OrderByClause) error {
 	return nil
 }

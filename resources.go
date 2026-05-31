@@ -1,7 +1,7 @@
 package skeleton
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v3"
 	"github.com/nicolasbonnici/gorest/crud"
 	"github.com/nicolasbonnici/gorest/database"
 	"github.com/nicolasbonnici/gorest/processor"
@@ -52,22 +52,22 @@ func RegisterItemRoutes(app *fiber.App, db database.Database, config *Config) {
 	app.Delete("/api/skeleton/:id", res.Delete)
 }
 
-func (r *ItemResource) Create(c *fiber.Ctx) error {
+func (r *ItemResource) Create(c fiber.Ctx) error {
 	return r.processor.Create(c)
 }
 
-func (r *ItemResource) GetByID(c *fiber.Ctx) error {
+func (r *ItemResource) GetByID(c fiber.Ctx) error {
 	return r.processor.GetByID(c)
 }
 
-func (r *ItemResource) GetAll(c *fiber.Ctx) error {
+func (r *ItemResource) GetAll(c fiber.Ctx) error {
 	return r.processor.GetAll(c)
 }
 
-func (r *ItemResource) Update(c *fiber.Ctx) error {
+func (r *ItemResource) Update(c fiber.Ctx) error {
 	return r.processor.Update(c)
 }
 
-func (r *ItemResource) Delete(c *fiber.Ctx) error {
+func (r *ItemResource) Delete(c fiber.Ctx) error {
 	return r.processor.Delete(c)
 }
