@@ -7,7 +7,7 @@ toolchain go1.26.4
 require (
 	github.com/gofiber/fiber/v3 v3.3.0
 	github.com/google/uuid v1.6.0
-	github.com/nicolasbonnici/gorest v0.5.16
+	github.com/nicolasbonnici/gorest v0.5.17
 )
 
 require (
@@ -21,7 +21,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.3.1 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
-	github.com/jackc/pgx/v5 v5.9.2 // indirect
+	github.com/jackc/pgx/v5 v5.10.0 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/klauspost/compress v1.18.6 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
