@@ -1,7 +1,8 @@
 # GoREST Skeleton Plugin
 
 [![CI](https://github.com/nicolasbonnici/gorest-skeleton/actions/workflows/ci.yml/badge.svg)](https://github.com/nicolasbonnici/gorest-skeleton/actions/workflows/ci.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/nicolasbonnici/gorest-skeleton)](https://goreportcard.com/report/github.com/nicolasbonnici/gorest-skeleton)
+[![Go Reference](https://pkg.go.dev/badge/github.com/nicolasbonnici/gorest-skeleton.svg)](https://pkg.go.dev/github.com/nicolasbonnici/gorest-skeleton)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/nicolasbonnici/gorest-skeleton)](https://github.com/nicolasbonnici/gorest-skeleton/blob/HEAD/go.mod)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **A comprehensive boilerplate/skeleton plugin for the GoREST framework - your starting point for building new plugins.**
